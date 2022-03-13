@@ -16,6 +16,7 @@ public class Bird : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GetComponent<LineRenderer>().enabled = false;
     }
 
     // Start is called before the first frame update
@@ -30,25 +31,14 @@ public class Bird : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
-    void OnMouseUp()
-    {
-        var currentPosition = rigidBody2D.position;
-        Vector2 direction = startPosition - currentPosition;
-        direction.Normalize();
-
-        rigidBody2D.isKinematic = false;
-        rigidBody2D.AddForce(direction * launchForce);
-
-        spriteRenderer.color = Color.white;
-
-    }
-
     void OnMouseDrag()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         Vector2 desiredPosition = mousePosition;
 
+        GetComponent<LineRenderer>().enabled = true;
+        GetComponent<LineRenderer>().SetPosition(0, startPosition);
+        GetComponent<LineRenderer>().SetPosition(1, transform.position);
 
         float distance = Vector2.Distance(startPosition, desiredPosition);
         if (distance > maxDragDistance)
@@ -64,6 +54,18 @@ public class Bird : MonoBehaviour
         }
 
         rigidBody2D.position = desiredPosition;
+    }
+    void OnMouseUp()
+    {
+        var currentPosition = rigidBody2D.position;
+        Vector2 direction = startPosition - currentPosition;
+        direction.Normalize();
+
+        rigidBody2D.isKinematic = false;
+        rigidBody2D.AddForce(direction * launchForce);
+
+        spriteRenderer.color = Color.white;
+        GetComponent<LineRenderer>().enabled = false;
     }
 
     // Update is called once per frame
