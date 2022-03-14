@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = deadsprite;
         thisParticleSystem.Play();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);
     }
 }

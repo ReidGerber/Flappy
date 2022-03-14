@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a692e084dd47784293568ff356225a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadsprite: {fileID: 21300000, guid: 70a60dad9c6f2aa42941b53edf1428e9, type: 3}
+  deadsprite: {fileID: 0}
   thisParticleSystem: {fileID: 1846713044523968334}
 --- !u!1 &1846713044523968323
 GameObject:
