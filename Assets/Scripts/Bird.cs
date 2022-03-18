@@ -11,6 +11,7 @@ public class Bird : MonoBehaviour
     Vector2 startPosition;
     Rigidbody2D rigidBody2D;
     SpriteRenderer spriteRenderer;
+    bool resetting;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class Bird : MonoBehaviour
     {
         startPosition = rigidBody2D.position;
         rigidBody2D.isKinematic = true;
+        resetting = false;
     }
 
     void OnMouseDown()
@@ -76,14 +78,20 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(ResetAfterDelay());
+        if (!resetting)
+        {
+            StartCoroutine(ResetAfterDelay());
+        }
+        
     }
 
     IEnumerator ResetAfterDelay()
     {
+        resetting = true;
         yield return new WaitForSeconds(3);
         rigidBody2D.position = startPosition;
         rigidBody2D.isKinematic = true;
         rigidBody2D.velocity = Vector2.zero;
+        resetting = false;
     }
 }
